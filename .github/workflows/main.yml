@@ -1,8 +1,28 @@
-print("Hello, world!")
+name: User1 User2 Code Check
+
 on:
   push:
     branches:
       - main
+
 jobs:
   check-user:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Identify user
+        run: |
+          echo "Code pushed by: ${{ github.actor }}"
+
+      - name: Allow only User1 and User2
+        run: |
+          if [[ "${{ github.actor }}" == "user1" || "${{ github.actor }}" == "user2" ]]; then
+            echo "Authorized user"
+          else
+            echo "Unauthorized user"
+            exit 1
+          fi
+
