@@ -3,3 +3,6 @@ on:
   push:
     branches:
       - main
+jobs:
+  check-user:
+    runs-on: ubuntu-latest
